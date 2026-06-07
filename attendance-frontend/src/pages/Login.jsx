@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import axios from 'axios'
+import API_BASE_URL from '../config'
 
 function Login({ onLogin }) {
   const [username, setUsername] = useState('')
@@ -12,7 +13,7 @@ function Login({ onLogin }) {
     setLoading(true)
     setError('')
     try {
-      const response = await axios.post('http://localhost:8081/api/auth/login', {
+      const response = await axios.post(`${API_BASE_URL}/api/auth/login`, {
         username,
         password
       })
@@ -33,27 +34,13 @@ function Login({ onLogin }) {
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label>Username</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Enter username"
-              required
-            />
+            <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Enter username" required />
           </div>
           <div className="form-group">
             <label>Password</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter password"
-              required
-            />
+            <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Enter password" required />
           </div>
-          <button type="submit" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
-          </button>
+          <button type="submit" disabled={loading}>{loading ? 'Logging in...' : 'Login'}</button>
         </form>
         <p className="hint">Default: teacher / teacher123</p>
       </div>
